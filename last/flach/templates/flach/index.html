@@ -1,0 +1,59 @@
+ {% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=" {%  static 'flach\style.css' %}">
+    <title>page principale</title>
+</head>
+<body>
+    <header>
+        <ul>
+            <li><a href="#Accueil">Accueil</a></li>
+            <li><a href="#a_propos">A propos</a></li>
+            <li><a href="#contact">contact</a></li>
+        </ul>
+    </header>
+<div class="container" id="Accueil">
+    <h1>
+        Bienvenue sur le site web de Marhaba librairie ! 
+    </h1>
+    <H2><a href="{% url 'flach:add' %} ">Ajouter un livre</a></H2>
+    <table >
+        <tr>
+            <th>Titre</th>
+            <th>Auteur</th>
+            <th>Quantite</th>
+            <th colspan="2">Action</th>
+        </tr>
+        {% for Livre in livres%}
+        <tr>
+            <td><a href="{% url 'flach:show' Livre.id %}"> {{Livre.titre}} </a></td>
+            <td> {{Livre.auteur}}</td>
+            <td> {{Livre.quantite}}</td>
+            <td><a href="{% url 'flach:modifie' Livre.id %} ">modifie le livre</a></td>
+            <td><a href="{% url 'flach:delete' Livre.id %} ">supprimer le livre</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div id="a_propos"  class="propos">
+    <p>
+         Marhaba librairie est une librairie située dans le centre-ville de Niamey, au Niger.<br>
+        Elle propose une large sélection de livres pour les étudiants et les enseignants. <br>
+        Le site web de vente de livres de Marhaba librairie offre un service de qualité supérieure, avec une interface utilisateur conviviale et facile à naviguer.<br>
+        Les clients peuvent facilement parcourir les livres disponibles, les ajouter à leur panier et passer leur commande en quelques clics. <br>
+        De plus, le site web propose des offres spéciales et des réductions exclusives pour les clients fidèles.<br>
+        Si vous cherchez une librairie en ligne fiable et pratique pour acheter des livres, Marhaba librairie est le choix idéal <br>
+    </p>
+</div>
+    {% comment "" %}
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_table}}
+        <input type="submit" , value="Envoye">
+    </form>
+    {% endcomment %}
+</body>
+</html>
